@@ -117,6 +117,6 @@ webcolors==24.11.1
 webencodings==0.5.1
 websocket-client==1.8.0
 Werkzeug==3.0.6
-wheel @ file:///usr/local/Cellar/python%403.13/3.13.2/libexec/wheel-0.45.1-py3-none-any.whl#sha256=b9235939e2096903717cb6bfc132267f8a7e46deb2ec3ef9c5e234ea301795d0
+wheel==0.45.1
 yfinance==0.2.55
 zipp==3.21.0
