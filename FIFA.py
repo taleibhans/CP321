@@ -1,11 +1,12 @@
+import os
 import pandas as pd
 import plotly.express as px
 import dash
 from dash import dcc, html
 from dash.dependencies import Input, Output
 
-# Load data (Use CSV instead of live scraping)
-df = pd.read_csv("world_cup_data.csv")  # Ensure this file is in your GitHub repo
+# Load data (Ensure this CSV is present in your repository)
+df = pd.read_csv("world_cup_data.csv")
 
 # Convert Year to string for visualization
 df['Year'] = df['Year'].astype(str)
@@ -21,8 +22,10 @@ server = app.server  # Needed for Render deployment
 app.layout = html.Div([
     html.H1("FIFA World Cup Winners Visualization", style={'textAlign': 'center'}),
     
+    # World Map Visualization
     dcc.Graph(id="world_map"),
-    
+
+    # Country Selection Dropdown
     html.Label("Select a Country:", style={'fontSize': 18}),
     dcc.Dropdown(
         id="country-dropdown",
@@ -31,16 +34,19 @@ app.layout = html.Div([
         clearable=False
     ),
 
+    # Country Wins Bar Chart
     dcc.Graph(id="country_wins"),
     
+    # Year Selection Dropdown
     html.Label("Select a Year:", style={'fontSize': 18}),
     dcc.Dropdown(
         id="year-dropdown",
         options=[{'label': year, 'value': year} for year in df['Year']],
-        value=df['Year'].max(),
+        value=df['Year'].max(),  # Default to latest year
         clearable=False
     ),
 
+    # Display Winner Information
     html.Div(id="winner-info", style={'fontSize': 20, 'marginTop': 20, 'textAlign': 'center'})
 ])
 
@@ -98,4 +104,5 @@ def update_winner_info(selected_year):
 
 # Run app
 if __name__ == '__main__':
-    app.run(debug=True, host="0.0.0.0", port=10000)
+    port = int(os.environ.get("PORT", 10000))  # Uses environment variable for deployment
+    app.run_server(debug=True, host="0.0.0.0", port=port)
