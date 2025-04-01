@@ -105,4 +105,4 @@ def update_winner_info(selected_year):
 # Run app
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 10000))  # Uses environment variable for deployment
-    app.run_server(debug=True, host="0.0.0.0", port=port)
+    app.run(debug=True, host="0.0.0.0", port=port)
